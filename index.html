@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Έρευνα Speakeasy σεζόν 2027 · v1.0.12 -->
+<!-- Έρευνα Speakeasy σεζόν 2027 · v1.0.13 -->
 <html lang="el">
 <head>
 <meta charset="utf-8">
@@ -129,7 +129,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
     <div id="questions"></div>
     <button id="send" disabled>Αποστολή απαντήσεων</button>
     <div id="msg"></div>
-    <footer>Δεν καταγράφεται όνομα, email ή άλλο στοιχείο ταυτοποίησης. Οι απαντήσεις αξιοποιούνται μόνο συγκεντρωτικά.<br>Speakeasy | Kafousias Bros Group<span class="ver">v1.0.12</span></footer>
+    <footer>Δεν καταγράφεται όνομα, email ή άλλο στοιχείο ταυτοποίησης. Οι απαντήσεις αξιοποιούνται μόνο συγκεντρωτικά.<br>Speakeasy | Kafousias Bros Group<span class="ver">v1.0.13</span></footer>
   </main>
 </div>
 
@@ -349,13 +349,13 @@ send.addEventListener("click", async () => {
   send.disabled = true;
   msg.textContent = "Γίνεται αποστολή...";
   try{
-    await fetch(ENDPOINT, {
+    const res = await fetch(ENDPOINT, {
       method: "POST",
-      mode: "no-cors",
       redirect: "follow",
       headers: {"Content-Type": "text/plain;charset=utf-8"},
       body: JSON.stringify(answers)
     });
+    if (!res.ok) throw new Error("HTTP " + res.status);
     markSent();
     showDone();
   }catch(e){
