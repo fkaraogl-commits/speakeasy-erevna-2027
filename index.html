@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="el">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Η νέα σεζόν ξεκινά από εσάς</title>
+<meta name="description" content="Σύντομη ανώνυμη έρευνα για τα ταξιδιωτικά γραφεία">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;800&display=swap">
+<style>
+:root{
+  --ink:#2B0E46;
+  --ink-2:#3D1660;
+  --accent:#9C3090;
+  --soft:#F7F0F9;
+  --lilac:#E9D8F0;
+  --card:#FFFFFF;
+  --line:#E6DAEC;
+  --text:#2B0E46;
+  --muted:#6E6478;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--soft); color:var(--text);
+  font-family:"Source Sans 3",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:17px; line-height:1.5; -webkit-text-size-adjust:100%;
+}
+.wrap{
+  max-width:680px; margin:0 auto;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--ink);color:#fff;padding:44px 0 64px}
+.hero .shape{position:absolute;pointer-events:none}
+.s1{width:420px;height:420px;border-radius:50%;background:var(--accent);right:-150px;top:-170px;opacity:.9}
+.s2{width:260px;height:260px;border-radius:50%;border:34px solid var(--ink-2);right:120px;bottom:-150px}
+.s3{width:180px;height:180px;background:var(--lilac);opacity:.14;transform:rotate(18deg);left:-70px;bottom:-60px}
+.s4{width:90px;height:90px;border-radius:50%;background:#fff;opacity:.08;right:38%;top:28px}
+.hero .wrap{position:relative}
+.brand{font-size:13px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--lilac);margin:0 0 26px}
+.eyebrow{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:14px;letter-spacing:.04em;padding:5px 12px;border-radius:6px;margin-bottom:14px}
+h1{font-size:clamp(32px,7vw,48px);line-height:1.08;margin:0 0 16px;font-weight:800;letter-spacing:-.015em;text-wrap:balance;max-width:15ch}
+.lede{font-size:19px;color:#EBDDF2;margin:0 0 18px;max-width:34ch;text-wrap:pretty}
+.facts{display:flex;flex-wrap:wrap;gap:8px}
+.fact{font-size:14px;font-weight:600;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:99px;padding:5px 12px}
+
+/* progress */
+#bar{position:sticky;top:0;z-index:5;background:#fff;box-shadow:0 1px 0 var(--line)}
+#bar .wrap{padding-block:10px 9px;display:flex;align-items:center;gap:12px}
+#track{flex:1;height:7px;background:var(--lilac);border-radius:99px;overflow:hidden}
+#fill{height:100%;width:0;background:var(--accent);border-radius:99px;transition:width .25s ease}
+#count{font-size:14px;font-weight:700;color:var(--accent);white-space:nowrap}
+
+main{padding-block:8px 56px}
+section{margin-top:40px}
+.sec-head{display:flex;align-items:center;gap:12px;margin:0 0 14px}
+.sec-num{flex:none;width:38px;height:38px;border-radius:10px;background:var(--ink);color:#fff;font-weight:800;font-size:15px;display:grid;place-items:center}
+.sec-title{font-size:22px;font-weight:800;margin:0;letter-spacing:-.01em}
+
+.q{background:var(--card);border-radius:16px;padding:18px 18px 12px;margin-bottom:14px;border:2px solid transparent;box-shadow:0 1px 2px rgba(43,14,70,.06),0 4px 14px rgba(43,14,70,.05);transition:border-color .15s ease}
+.q.answered{border-color:var(--accent)}
+.q-head{display:flex;gap:10px;align-items:baseline;margin-bottom:12px}
+.q-num{font-weight:800;color:var(--accent);font-size:16px;min-width:24px}
+.q-text{font-weight:700;margin:0;font-size:18px;line-height:1.35}
+.opt-note{display:block;font-size:14px;color:var(--muted);font-weight:600;margin-top:4px}
+
+label.opt{display:flex;gap:12px;align-items:flex-start;padding:11px 13px;margin-bottom:8px;border:1.5px solid var(--line);border-radius:11px;background:#fff;cursor:pointer;transition:background .12s ease,border-color .12s ease,color .12s ease}
+label.opt:hover{border-color:var(--accent);background:var(--soft)}
+label.opt:has(input:checked){background:var(--accent);border-color:var(--accent);color:#fff}
+label.opt input{margin:4px 0 0;flex:none;width:17px;height:17px;accent-color:var(--ink)}
+label.opt span{min-width:0;font-weight:600}
+input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+
+#send{margin-top:30px;width:100%;background:var(--ink);color:#fff;border:0;border-radius:14px;padding:18px;font:inherit;font-weight:800;font-size:19px;cursor:pointer;transition:background .15s ease}
+#send:not(:disabled):hover{background:var(--accent)}
+#send:disabled{opacity:.4;cursor:not-allowed}
+#msg{margin-top:12px;font-size:15px;color:var(--muted);min-height:22px;text-align:center}
+
+#done{display:none}
+#done .hero{min-height:100vh;display:flex;align-items:center;padding:0}
+#done .wrap{width:100%}
+#done h2{font-size:clamp(30px,6vw,42px);margin:0 0 12px;font-weight:800;line-height:1.1;max-width:16ch}
+#done p{color:#EBDDF2;font-size:19px;margin:0;max-width:32ch}
+
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);font-weight:600}
+@media (max-width:520px){
+  .s1{width:300px;height:300px;right:-140px;top:-130px}
+  .s2{width:180px;height:180px;border-width:24px;right:-30px;bottom:-110px}
+  .hero{padding:32px 0 52px}
+  .q{padding:16px 14px 10px}
+}
+</style>
+</head>
+<body>
+
+<div id="form">
+  <div class="hero">
+    <div class="shape s1"></div><div class="shape s2"></div><div class="shape s3"></div><div class="shape s4"></div>
+    <div class="wrap">
+      <p class="brand">Speakeasy</p>
+      <span class="eyebrow">Σεζόν 2027</span>
+      <h1>Η νέα σεζόν ξεκινά από εσάς</h1>
+      <p class="lede">Τρία λεπτά από την εμπειρία σας αρκούν για να σχεδιάσουμε τις υπηρεσίες που πραγματικά χρειάζεστε.</p>
+      <div class="facts">
+        <span class="fact">20 ερωτήσεις</span>
+        <span class="fact">Περίπου 3 λεπτά</span>
+        <span class="fact">Ανώνυμη συμμετοχή</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="bar" hidden>
+    <div class="wrap">
+      <div id="track"><div id="fill"></div></div>
+      <div id="count"></div>
+    </div>
+  </div>
+
+  <main class="wrap">
+    <div id="questions"></div>
+    <button id="send" disabled>Αποστολή απαντήσεων</button>
+    <div id="msg"></div>
+    <footer>Δεν καταγράφεται όνομα, email ή άλλο στοιχείο ταυτοποίησης. Οι απαντήσεις αξιοποιούνται μόνο συγκεντρωτικά.<br>Speakeasy | Kafousias Bros Group</footer>
+  </main>
+</div>
+
+<div id="done">
+  <div class="hero">
+    <div class="shape s1"></div><div class="shape s2"></div><div class="shape s3"></div>
+    <div class="wrap">
+      <p class="brand">Speakeasy</p>
+      <h2>Ευχαριστούμε για τον χρόνο σας</h2>
+      <p id="done-text">Οι απαντήσεις σας καταχωρήθηκαν και θα αξιοποιηθούν στον σχεδιασμό της νέας σεζόν.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const ENDPOINT = "https://script.google.com/macros/s/AKfycby36nKtS5guWXQ0REsnZDQkGaGdUK24Bl2S3I0GmMCcXpT7aTUvY0AHriDE3sKlJ_tpdQ/exec";
+const SENT_KEY = "speakeasy_erevna_2027_sent";
+function alreadySent(){ try { return localStorage.getItem(SENT_KEY) === "1"; } catch(e){ return false; } }
+function markSent(){ try { localStorage.setItem(SENT_KEY, "1"); } catch(e){} }
+function showDone(){
+  document.getElementById("form").hidden = true;
+  document.getElementById("done").style.display = "block";
+  window.scrollTo(0, 0);
+}
+if (alreadySent()){
+  document.getElementById("done-text").textContent = "Οι απαντήσεις σας έχουν ήδη καταχωρηθεί από αυτή τη συσκευή. Σας ευχαριστούμε για τη συμμετοχή.";
+  showDone();
+}
+
+const SECTIONS = [
+ {t:"Η συνεργασία μας", qs:[
+  {id:"q1", q:"Πόσα χρόνια συνεργάζεστε μαζί μας;",
+   o:["Λιγότερο από έναν χρόνο","1 έως 3 χρόνια","4 έως 7 χρόνια","Πάνω από 7 χρόνια"]},
+  {id:"q2", q:"Πόσο ικανοποιημένοι είστε από τη συνεργασία μας αυτή τη σεζόν;",
+   o:["Πολύ ικανοποιημένοι","Αρκετά ικανοποιημένοι","Μέτρια","Λίγο ικανοποιημένοι","Καθόλου ικανοποιημένοι"]},
+  {id:"q3", q:"Τι μετρά περισσότερο για εσάς σε έναν συνεργάτη εξοπλισμού ξενάγησης;", m:true, max:2,
+   o:["Αξιοπιστία των συσκευών","Έγκαιρη παράδοση και παραλαβή","Άμεση εξυπηρέτηση","Ποιότητα ήχου","Τιμή","Κάλυψη σε περισσότερες περιοχές"]}
+ ]},
+
+ {t:"Οι αναχωρήσεις σας", qs:[
+  {id:"q4", q:"Πόσες αναχωρήσεις με ξεναγό κάνετε σε μια σεζόν;",
+   o:["Έως 50","51 έως 200","201 έως 500","501 έως 1.000","Πάνω από 1.000"]},
+  {id:"q5", q:"Ποιο είναι το συνηθισμένο μέγεθος γκρουπ;",
+   o:["Έως 15 άτομα","16 έως 25 άτομα","26 έως 40 άτομα","Πάνω από 40 άτομα"]},
+  {id:"q6", q:"Πόσο διαρκεί η σεζόν σας;",
+   o:["Έως 4 μήνες","5 έως 7 μήνες","8 έως 10 μήνες","Όλο τον χρόνο"]},
+  {id:"q7", q:"Πόσο νωρίτερα κάνετε συνήθως την κράτηση του εξοπλισμού για μια αναχώρηση;",
+   o:["Την ίδια ή την προηγούμενη μέρα","2 έως 7 μέρες πριν","1 έως 4 εβδομάδες πριν","Πάνω από έναν μήνα πριν"]}
+ ]},
+
+ {t:"Οι γλώσσες των επισκεπτών", qs:[
+  {id:"q8", q:"Σε πόσες διαφορετικές γλώσσες πραγματοποιείτε ξεναγήσεις μέσα στη σεζόν;",
+   o:["Σε μία","Σε δύο","Σε τρεις","Σε τέσσερις ή περισσότερες"]},
+  {id:"q9", q:"Σε τι ποσοστό των αναχωρήσεών σας συμμετέχουν στο ίδιο γκρουπ επισκέπτες που χρειάζονται διαφορετική γλώσσα ξενάγησης;",
+   o:["Σχεδόν ποτέ","Έως 10%","Από 10% έως 25%","Από 25% έως 50%","Πάνω από 50%"]},
+  {id:"q10", q:"Πώς το αντιμετωπίζετε συνήθως;", m:true, x:["Δεν μας συμβαίνει"],
+   o:["Η ξενάγηση γίνεται στα αγγλικά","Ο ξεναγός μιλά εναλλάξ σε δύο γλώσσες","Χωρίζουμε τα γκρουπ","Φέρνουμε δεύτερο ξεναγό ή διερμηνέα","Αποφεύγουμε να δεχτούμε τέτοια γκρουπ","Δεν μας συμβαίνει"]},
+  {id:"q11", q:"Ποιες γλώσσες σας ζητούν οι επισκέπτες χωρίς να μπορείτε πάντα να τις καλύψετε;", m:true, x:["Καμία, καλύπτουμε όσες χρειάζεται"],
+   o:["Γερμανικά","Γαλλικά","Ιταλικά","Ισπανικά","Ρωσικά","Κινεζικά ή ιαπωνικά","Άλλη","Καμία, καλύπτουμε όσες χρειάζεται"]}
+ ]},
+
+ {t:"Το κόστος μιας αναχώρησης", qs:[
+  {id:"q12", q:"Ποιος είναι ο ελάχιστος αριθμός συμμετεχόντων για να πραγματοποιηθεί μια αναχώρηση;",
+   o:["Έως 5 άτομα","6 έως 10 άτομα","11 έως 20 άτομα","Πάνω από 20 άτομα","Δεν έχουμε ελάχιστο αριθμό"]},
+  {id:"q13", q:"Τι κοστίζει περίπου ένας ξεναγός για μια ημερήσια εκδρομή;",
+   n:"Προαιρετικό", opt:true,
+   o:["Έως 150 €","151 έως 200 €","201 έως 250 €","251 έως 300 €","Πάνω από 300 €","Προτιμώ να μην απαντήσω"]},
+  {id:"q14", q:"Πόσο ανεβαίνει το κόστος μιας αναχώρησης όταν χρειάζεται δεύτερος ξεναγός ή διερμηνέας;",
+   n:"Προαιρετικό", opt:true,
+   o:["Έως 30%","Από 30% έως 70%","Σχεδόν διπλασιάζεται","Δεν το έχουμε κάνει ποτέ"]}
+ ]},
+
+ {t:"Τι χάνεται σήμερα", qs:[
+  {id:"q15", q:"Πόσες αναχωρήσεις ακυρώσατε τη σεζόν 2026 επειδή δεν συμπληρώθηκε ο ελάχιστος αριθμός;",
+   o:["Καμία","1 έως 3","4 έως 10","Πάνω από 10"]},
+  {id:"q16", q:"Σας έχει τύχει να χάσετε κράτηση επειδή ο επισκέπτης ήθελε άλλη γλώσσα;",
+   o:["Ποτέ","Σπάνια","Αρκετές φορές","Συχνά"]},
+  {id:"q17", q:"Υπάρχουν χώρες προέλευσης επισκεπτών που θα θέλατε να προσελκύσετε αλλά δεν μπορείτε λόγω γλώσσας;",
+   o:["Ναι, μία","Ναι, περισσότερες από μία","Όχι","Δεν το έχουμε εξετάσει"]}
+ ]},
+
+ {t:"Η νέα σεζόν", qs:[
+  {id:"q18", q:"Πότε κλείνει ο προγραμματισμός σας για τη νέα σεζόν;",
+   o:["Μέχρι τον Δεκέμβριο","Ιανουάριο με Φεβρουάριο","Μάρτιο ή αργότερα","Δεν υπάρχει σταθερή περίοδος"]},
+  {id:"q19", q:"Ποιες υπηρεσίες θα θέλατε να σας προσφέρουμε;", m:true, max:2, x:["Καμία από αυτές"],
+   o:["Αμφίδρομα συστήματα, με ερωτήσεις από το κοινό","Μακροχρόνια μίσθωση εξοπλισμού","Αγορά εξοπλισμού","Ψηφιακοί ηχητικοί οδηγοί","Ξενάγηση σε πολλές γλώσσες ταυτόχρονα","Καμία από αυτές"]},
+  {id:"q20", q:"Τι θα βελτιώνατε στην εξυπηρέτησή μας;", m:true, x:["Τίποτα, είμαστε καλυμμένοι"],
+   o:["Ταχύτερη επιβεβαίωση κράτησης","Παράδοση στο σημείο της εκδρομής","Περισσότερα σημεία παραλαβής","Κρατήσεις online","Τίποτα, είμαστε καλυμμένοι"]}
+ ]}
+];
+
+const ALL = SECTIONS.flatMap(s => s.qs);
+const REQ = ALL.filter(q => !q.opt).map(q => q.id);
+const answers = {};
+
+const host = document.getElementById("questions");
+let n = 0;
+SECTIONS.forEach((sec, si) => {
+  const s = document.createElement("section");
+  const head = document.createElement("div");
+  head.className = "sec-head";
+  const num = document.createElement("span");
+  num.className = "sec-num";
+  num.textContent = String(si + 1).padStart(2, "0");
+  const h = document.createElement("h2");
+  h.className = "sec-title";
+  h.textContent = sec.t;
+  head.append(num, h);
+  s.appendChild(head);
+
+  for (const q of sec.qs){
+    n++;
+    const box = document.createElement("div");
+    box.className = "q";
+    box.id = "box-" + q.id;
+
+    const qh = document.createElement("div");
+    qh.className = "q-head";
+    const qn = document.createElement("span");
+    qn.className = "q-num";
+    qn.textContent = n + ".";
+    const txt = document.createElement("p");
+    txt.className = "q-text";
+    txt.textContent = q.q;
+    const noteText = [q.m ? (q.max ? "Επιλέξτε έως δύο" : "Επιλέξτε όσα ισχύουν") : "", q.n || ""].filter(Boolean).join(" · ");
+    if (noteText){
+      const note = document.createElement("span");
+      note.className = "opt-note";
+      note.textContent = noteText;
+      txt.appendChild(note);
+    }
+    qh.append(qn, txt);
+    box.appendChild(qh);
+
+    q.o.forEach((o, i) => {
+      const lab = document.createElement("label");
+      lab.className = "opt";
+      const inp = document.createElement("input");
+      inp.type = q.m ? "checkbox" : "radio";
+      inp.name = q.id;
+      inp.id = q.id + "-" + i;
+      inp.value = o;
+      const sp = document.createElement("span");
+      sp.textContent = o;
+      lab.append(inp, sp);
+      box.appendChild(lab);
+      inp.addEventListener("change", () => {
+        if (q.m){
+          const boxes = [...box.querySelectorAll("input")];
+          if (inp.checked && q.max && boxes.filter(b => b.checked).length > q.max){
+            inp.checked = false;
+            return;
+          }
+          if (inp.checked && q.x){
+            const excl = q.x.includes(o);
+            boxes.forEach(b => { if (b !== inp && (excl || q.x.includes(b.value))) b.checked = false; });
+          }
+          const picked = boxes.filter(b => b.checked).map(b => b.value);
+          if (picked.length) answers[q.id] = picked.join("; "); else delete answers[q.id];
+          box.classList.toggle("answered", picked.length > 0);
+        } else {
+          answers[q.id] = o;
+          box.classList.add("answered");
+        }
+        refresh();
+      });
+    });
+    s.appendChild(box);
+  }
+  host.appendChild(s);
+});
+
+const bar = document.getElementById("bar");
+const fill = document.getElementById("fill");
+const count = document.getElementById("count");
+const send = document.getElementById("send");
+const msg = document.getElementById("msg");
+
+function refresh(){
+  const done = REQ.filter(id => answers[id]).length;
+  bar.hidden = done === 0;
+  fill.style.width = Math.round(done / REQ.length * 100) + "%";
+  count.textContent = done + " / " + REQ.length;
+  send.disabled = done < REQ.length;
+}
+
+send.addEventListener("click", async () => {
+  send.disabled = true;
+  msg.textContent = "Γίνεται αποστολή...";
+  try{
+    await fetch(ENDPOINT, {
+      method: "POST",
+      headers: {"Content-Type": "text/plain;charset=utf-8"},
+      body: JSON.stringify(answers)
+    });
+    markSent();
+    showDone();
+  }catch(e){
+    msg.textContent = "Κάτι πήγε στραβά. Δοκιμάστε ξανά σε λίγο.";
+    send.disabled = false;
+  }
+});
+
+refresh();
+</script>
+</body>
+</html>
