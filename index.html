@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Έρευνα Speakeasy σεζόν 2027 · v1.0.11 -->
+<!-- Έρευνα Speakeasy σεζόν 2027 · v1.0.12 -->
 <html lang="el">
 <head>
 <meta charset="utf-8">
@@ -75,6 +75,8 @@ label.opt:hover{border-color:var(--accent);background:var(--soft)}
 label.opt:has(input:checked){background:var(--accent);border-color:var(--accent);color:#fff}
 label.opt input{margin:4px 0 0;flex:none;width:17px;height:17px;accent-color:var(--ink)}
 label.opt span{min-width:0;font-weight:600}
+.other-input{width:100%;margin:-2px 0 10px;padding:11px 13px;font:inherit;font-weight:600;color:var(--text);border:1.5px solid var(--accent);border-radius:11px;background:#fff}
+.other-input:focus{outline:2px solid var(--ink);outline-offset:1px}
 input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 
 #send{margin-top:30px;width:100%;background:var(--ink);color:#fff;border:0;border-radius:14px;padding:18px;font:inherit;font-weight:800;font-size:19px;cursor:pointer;transition:background .15s ease}
@@ -127,7 +129,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
     <div id="questions"></div>
     <button id="send" disabled>Αποστολή απαντήσεων</button>
     <div id="msg"></div>
-    <footer>Δεν καταγράφεται όνομα, email ή άλλο στοιχείο ταυτοποίησης. Οι απαντήσεις αξιοποιούνται μόνο συγκεντρωτικά.<br>Speakeasy | Kafousias Bros Group<span class="ver">v1.0.11</span></footer>
+    <footer>Δεν καταγράφεται όνομα, email ή άλλο στοιχείο ταυτοποίησης. Οι απαντήσεις αξιοποιούνται μόνο συγκεντρωτικά.<br>Speakeasy | Kafousias Bros Group<span class="ver">v1.0.12</span></footer>
   </main>
 </div>
 
@@ -186,8 +188,8 @@ const SECTIONS = [
    o:["Σχεδόν ποτέ","Έως 10%","Από 10% έως 25%","Από 25% έως 50%","Πάνω από 50%"]},
   {id:"q10", q:"Πώς το αντιμετωπίζετε συνήθως;", m:true, x:["Δεν μας συμβαίνει"],
    o:["Η ξενάγηση γίνεται στα αγγλικά","Ο ξεναγός μιλά εναλλάξ σε δύο γλώσσες","Χωρίζουμε τα γκρουπ","Φέρνουμε δεύτερο ξεναγό ή διερμηνέα","Αποφεύγουμε να δεχτούμε τέτοια γκρουπ","Δεν μας συμβαίνει"]},
-  {id:"q11", q:"Ποιες γλώσσες σας ζητούν οι επισκέπτες χωρίς να μπορείτε πάντα να τις καλύψετε;", m:true, x:["Καμία, καλύπτουμε όσες χρειάζεται"],
-   o:["Γερμανικά","Γαλλικά","Ιταλικά","Ισπανικά","Ρωσικά","Κινεζικά ή ιαπωνικά","Άλλη","Καμία, καλύπτουμε όσες χρειάζεται"]}
+  {id:"q11", q:"Ποιες γλώσσες σας ζητούν οι επισκέπτες χωρίς να μπορείτε πάντα να τις καλύψετε;", m:true, x:["Καμία, καλύπτουμε όσες χρειάζεται"], other:"Άλλη",
+   o:["Γερμανικά","Γαλλικά","Ιταλικά","Ισπανικά","Ρωσικά","Κινεζικά","Ιαπωνικά","Άλλη","Καμία, καλύπτουμε όσες χρειάζεται"]}
  ]},
 
  {t:"Το κόστος μιας αναχώρησης", qs:[
@@ -263,6 +265,24 @@ SECTIONS.forEach((sec, si) => {
     qh.append(qn, txt);
     box.appendChild(qh);
 
+    let otherInput = null;
+    const update = () => {
+      const boxes = [...box.querySelectorAll("input[type=checkbox]")];
+      const picked = boxes.filter(b => b.checked).map(b => {
+        if (q.other && b.value === q.other && otherInput){
+          const t = otherInput.value.trim();
+          return t ? q.other + ": " + t : b.value;
+        }
+        return b.value;
+      });
+      if (otherInput){
+        const on = boxes.some(b => b.checked && b.value === q.other);
+        otherInput.style.display = on ? "block" : "none";
+      }
+      if (picked.length) answers[q.id] = picked.join("; "); else delete answers[q.id];
+      box.classList.toggle("answered", picked.length > 0);
+    };
+
     q.o.forEach((o, i) => {
       const lab = document.createElement("label");
       lab.className = "opt";
@@ -275,9 +295,20 @@ SECTIONS.forEach((sec, si) => {
       sp.textContent = o;
       lab.append(inp, sp);
       box.appendChild(lab);
+      if (q.other && o === q.other){
+        otherInput = document.createElement("input");
+        otherInput.type = "text";
+        otherInput.className = "other-input";
+        otherInput.maxLength = 80;
+        otherInput.placeholder = "Ποια γλώσσα; π.χ. Πολωνικά";
+        otherInput.setAttribute("aria-label", "Άλλη γλώσσα");
+        otherInput.style.display = "none";
+        otherInput.addEventListener("input", update);
+        box.appendChild(otherInput);
+      }
       inp.addEventListener("change", () => {
         if (q.m){
-          const boxes = [...box.querySelectorAll("input")];
+          const boxes = [...box.querySelectorAll("input[type=checkbox]")];
           if (inp.checked && q.max && boxes.filter(b => b.checked).length > q.max){
             inp.checked = false;
             return;
@@ -286,9 +317,8 @@ SECTIONS.forEach((sec, si) => {
             const excl = q.x.includes(o);
             boxes.forEach(b => { if (b !== inp && (excl || q.x.includes(b.value))) b.checked = false; });
           }
-          const picked = boxes.filter(b => b.checked).map(b => b.value);
-          if (picked.length) answers[q.id] = picked.join("; "); else delete answers[q.id];
-          box.classList.toggle("answered", picked.length > 0);
+          update();
+          if (otherInput && inp.checked && o === q.other) otherInput.focus();
         } else {
           answers[q.id] = o;
           box.classList.add("answered");
