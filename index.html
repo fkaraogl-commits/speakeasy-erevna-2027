@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- Έρευνα Speakeasy σεζόν 2027 · v1.0.11 -->
 <html lang="el">
 <head>
 <meta charset="utf-8">
@@ -87,6 +88,7 @@ input:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
 #done h2{font-size:clamp(30px,6vw,42px);margin:0 0 12px;font-weight:800;line-height:1.1;max-width:16ch}
 #done p{color:#EBDDF2;font-size:19px;margin:0;max-width:32ch}
 
+.ver{float:right;font-weight:400;opacity:.7}
 footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted);font-weight:600}
 @media (max-width:520px){
   .s1{width:300px;height:300px;right:-140px;top:-130px}
@@ -125,7 +127,7 @@ footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);font-si
     <div id="questions"></div>
     <button id="send" disabled>Αποστολή απαντήσεων</button>
     <div id="msg"></div>
-    <footer>Δεν καταγράφεται όνομα, email ή άλλο στοιχείο ταυτοποίησης. Οι απαντήσεις αξιοποιούνται μόνο συγκεντρωτικά.<br>Speakeasy | Kafousias Bros Group</footer>
+    <footer>Δεν καταγράφεται όνομα, email ή άλλο στοιχείο ταυτοποίησης. Οι απαντήσεις αξιοποιούνται μόνο συγκεντρωτικά.<br>Speakeasy | Kafousias Bros Group<span class="ver">v1.0.11</span></footer>
   </main>
 </div>
 
@@ -150,6 +152,7 @@ function showDone(){
   document.getElementById("done").style.display = "block";
   window.scrollTo(0, 0);
 }
+try { if (new URLSearchParams(location.search).has("dokimi")) localStorage.removeItem(SENT_KEY); } catch(e){}
 if (alreadySent()){
   document.getElementById("done-text").textContent = "Οι απαντήσεις σας έχουν ήδη καταχωρηθεί από αυτή τη συσκευή. Σας ευχαριστούμε για τη συμμετοχή.";
   showDone();
